@@ -77,16 +77,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
+    { name: "viewport", content: "width=device-width, initial-scale=1" },
+    { title: "ResumePing — Optimize Your Resume for ATS in Seconds" },
+    { name: "description", content: "Optimize your resume to pass standard Western ATS platforms in seconds." },
+    { name: "author", content: "ResumePing" },
+    { property: "og:title", content: "ResumePing — Optimize Your Resume for ATS in Seconds" },
+    { property: "og:description", content: "Optimize your resume to pass standard Western ATS platforms in seconds." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary" },
+    { name: "twitter:site", content: "@ResumePing" },
+  ],
     links: [
       {
         rel: "stylesheet",
