@@ -1075,17 +1075,8 @@ function UnlockedResult({ language, summary, fileName }: { language: Language; s
           .print-container, .print-container * { visibility: visible; }
           .print-container { position: absolute; left: 0; top: 0; width: 100%; }
           .no-print { display: none !important; }
-          .print-container::after {
-            content: "Generated via paperping.dollarfix.net";
-            display: block;
-            text-align: center;
-            margin-top: 40px;
-            padding-top: 10px;
-            border-top: 1px solid #ccc;
-            font-size: 12px;
-            color: #666;
-          }
         }
+
       `}</style>
 
       <div className="mb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 no-print">
@@ -1114,10 +1105,7 @@ function UnlockedResult({ language, summary, fileName }: { language: Language; s
       </div>
 
       <div className="rounded-xl border border-border bg-surface p-6 text-sm leading-relaxed text-foreground/90 whitespace-pre-wrap shadow-soft">
-        {/* ترويسة تظهر فقط في الورقة المطبوعة للترتيب */}
-        <h2 className="hidden print:block text-xl font-bold mb-4 border-b pb-2">
-          {fileName ?? "Document"}
-        </h2>
+        
         <ReactMarkdown
           components={{
             h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-4 mb-2 text-primary" {...props} />,
