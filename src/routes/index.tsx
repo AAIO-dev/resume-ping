@@ -377,7 +377,7 @@ export type HistoryItem = {
 // دالة حفظ الملخص في السجل المحلي (بحد أقصى 15 ملف)
 const saveToHistory = async (fileName: string, summary: string) => {
   try {
-    const currentHistory: HistoryItem[] = (await get("paperping_history")) || [];
+    const currentHistory: HistoryItem[] = (await get("resumeping_history")) || [];
     const newItem: HistoryItem = {
       id: Date.now().toString(),
       fileName,
@@ -393,7 +393,7 @@ const saveToHistory = async (fileName: string, summary: string) => {
       updatedHistory = updatedHistory.slice(0, 15);
     }
     
-    await set("paperping_history", updatedHistory);
+    await set("resumeping_history", updatedHistory);
   } catch (error) {
     console.error("Error saving to history:", error);
   }
@@ -410,7 +410,7 @@ function LandingPage() {
   const inputRef = useRef<HTMLInputElement>(null);
   const appRef = useRef<HTMLDivElement>(null);
   const [language, setLanguage] = useState<Language>(() => {
-    const savedLang = typeof window !== 'undefined' ? localStorage.getItem("paperping_language") : null;
+    const savedLang = typeof window !== 'undefined' ? localStorage.getItem("resumeping_language") : null;
     return (savedLang as Language) || "en";
   });
   
@@ -419,7 +419,7 @@ function LandingPage() {
 
   // حفظ اللغة تلقائياً في الذاكرة عند أي تغيير
   useEffect(() => {
-    localStorage.setItem("paperping_language", language);
+    localStorage.setItem("resumeping_language", language);
   }, [language]);
   // حالة لحفظ الرصيد الحالي للمستخدم
   const [userCredits, setUserCredits] = useState<number | null>(null);
@@ -428,7 +428,7 @@ function LandingPage() {
 
   // جلب الرصيد من المتصفح بمجرد تحميل الصفحة
   useEffect(() => {
-    const storedCredits = localStorage.getItem('paperping_credits');
+    const storedCredits = localStorage.getItem('resumeping_credits');
     if (storedCredits !== null) {
       setUserCredits(parseInt(storedCredits, 10));
     } else {
@@ -471,7 +471,7 @@ function LandingPage() {
           setFileName(file.name);
           
           // إضافة الرصيد وتنظيف الرابط
-          localStorage.setItem("paperping_credits", "100");
+          localStorage.setItem("resumeping_credits", "100");
           window.history.replaceState({}, document.title, "/");
           
           // تشغيل محرك الذكاء الاصطناعي المنفصل
@@ -921,7 +921,7 @@ function LockedResult({
 
   // قراءة الرصيد من المتصفح عند فتح الصندوق
   useEffect(() => {
-    const savedCredits = localStorage.getItem("paperping_credits");
+    const savedCredits = localStorage.getItem("resumeping_credits");
     if (savedCredits) {
       setCredits(parseInt(savedCredits, 10));
     }
@@ -933,7 +933,7 @@ function LockedResult({
     if (credits > 0) {
       // 1. خصم رصيد واحد وتحديث الذاكرة
       const newCredits = credits - 1;
-      localStorage.setItem("paperping_credits", newCredits.toString());
+      localStorage.setItem("resumeping_credits", newCredits.toString());
       setCredits(newCredits);
       
       // 2. تحديث الشارات العلوية في الصفحة الرئيسية فوراً
@@ -1136,7 +1136,7 @@ function HistoryDrawer({
   // جلب البيانات من الذاكرة فقط عندما يتم فتح القائمة
   useEffect(() => {
     if (isOpen) {
-      get("paperping_history").then((data) => {
+      get("resumeping_history").then((data) => {
         if (data) setHistoryList(data);
       });
     }
