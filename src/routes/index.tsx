@@ -452,15 +452,26 @@ function LandingPage() {
         data: { 
           base64Data: base64, 
           mimeType: file.type,
-          targetLanguage: languageNames[language] // 👈 السطر السحري الذي يربط الواجهة بالذكاء الاصطناعي
+          targetLanguage: languageNames[language] 
         } 
       });
+      
+      // ✅ الخصم يحدث هنا فقط بعد نجاح الذكاء الاصطناعي
+      setUserCredits(prev => {
+        if (prev !== null && prev > 0) {
+          const newCredits = prev - 1;
+          // تأكد من تغيير الاسم إلى paperping_credits في التطبيق الآخر
+          localStorage.setItem("resumeping_credits", newCredits.toString()); 
+          return newCredits;
+        }
+        return prev;
+      });
+
       setSummaryResult(resultText);
       await saveToHistory(file.name, resultText);
       setState("unlocked");
     } catch (error) {
       console.error("AI Error:", error);
-      // تم تعديل التنبيه للإنجليزية كلغة افتراضية عالمية
       alert("An error occurred during summarization. Please try again.");
       setState("idle");
     }
@@ -939,20 +950,10 @@ function LockedResult({
     if (!pdfFile) return;
 
     if (credits > 0) {
-      // 1. خصم رصيد واحد وتحديث الذاكرة
-      const newCredits = credits - 1;
-      localStorage.setItem("resumeping_credits", newCredits.toString());
-      setCredits(newCredits);
-      
-      // 2. تحديث الشارات العلوية في الصفحة الرئيسية فوراً
-      onCreditSpent(); // 👈 3. وضعنا زر الإرسال هنا
-      
-      // 3. تشغيل الذكاء الاصطناعي فوراً
+      // ✅ تشغيل الذكاء الاصطناعي مباشرة دون خصم مبكر
       onUseCredit();
     } else {
-      // مسار الدفع المعتاد لمن ليس لديه رصيد
       try {
-// ... باقي الدالة كما هي بدون تغيير
         setIsRedirecting(true);
         await set("pending_pdf", pdfFile);
         const url = await createCheckout();
