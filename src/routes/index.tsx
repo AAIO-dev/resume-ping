@@ -341,8 +341,9 @@ const generateSummary = createServerFn({ method: "POST" })
     1. Extract all skills, experiences, and education.
     2. Rewrite bullet points using strong action verbs and quantify achievements where possible.
     3. Structure the output clearly with standard headings.
-    4. Format the text beautifully using Markdown.
-    5. IMPORTANT: ALL output MUST be written EXCLUSIVELY in ${data.targetLanguage}. You MUST translate or transliterate all company names, job titles, and locations into ${data.targetLanguage}. Keep only programming languages (like React, Node.js) in English.`;
+    4. Format the text beautifully using standard Markdown.
+    5. IMPORTANT: ALL output MUST be written EXCLUSIVELY in ${data.targetLanguage}. Translate or transliterate all company names, job titles, and locations. Keep programming languages in English.
+    6. CRITICAL: DO NOT output any conversational text, introductions, or explanations (e.g., do not say "Here is your resume"). Start immediately with the applicant's name. DO NOT wrap the response in markdown code blocks (\`\`\`). Output raw text only.`;
     const result = await model.generateContent([
       prompt,
       {
@@ -804,7 +805,7 @@ function IdleZone({
             activeTab === "upload" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          <Upload className="h-4 w-4" /> Upload File
+          <Upload className="h-4 w-4" /> {translations[language].uploadTab}
         </button>
         <button
           onClick={() => setActiveTab("paste")}
@@ -812,7 +813,7 @@ function IdleZone({
             activeTab === "paste" ? "bg-background shadow-sm text-foreground" : "text-muted-foreground hover:text-foreground"
           }`}
         >
-          <FileText className="h-4 w-4" /> Paste Text
+          <FileText className="h-4 w-4" /> {translations[language].pasteTab}
         </button>
       </div>
 
@@ -866,7 +867,7 @@ function IdleZone({
             className="mt-4 mx-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed shadow-glow"
           >
             <Sparkles className="h-4 w-4" />
-            Optimize Resume
+            {translations[language].optimizeBtn}
           </button>
         </div>
       )}
