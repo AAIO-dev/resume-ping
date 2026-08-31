@@ -41,6 +41,7 @@ export const languageNames: Record<Language, string> = {
 // القاموس المركزي الشامل لكامل الصفحة (محدث لهوية السير الذاتية)
 export const translations: Record<Language, any> = {
   en: {
+    uploadTab: "Upload File", pasteTab: "Paste Text", optimizeBtn: "Optimize Resume",
     analyzingPdf: "AI is optimizing your resume...",
     extractingConcepts: "formatting for ATS standards",
     uploadPdf: "Upload Resume",
@@ -79,6 +80,7 @@ export const translations: Record<Language, any> = {
     footer: "© 2026 ResumePing · Made for professionals, not shareholders."
   },
   es: {
+    uploadTab: "Subir Archivo", pasteTab: "Pegar Texto", optimizeBtn: "Optimizar Currículum",
     analyzingPdf: "La IA está optimizando su currículum...",
     extractingConcepts: "formateando para estándares ATS",
     uploadPdf: "Subir Currículum",
@@ -117,6 +119,7 @@ export const translations: Record<Language, any> = {
     footer: "© 2026 ResumePing · Hecho para profesionales, no para accionistas."
   },
   pt: {
+    uploadTab: "Enviar Arquivo", pasteTab: "Colar Texto", optimizeBtn: "Otimizar Currículo",
     analyzingPdf: "A IA está otimizando seu currículo...",
     extractingConcepts: "formatando para padrões ATS",
     uploadPdf: "Enviar Currículo",
@@ -155,6 +158,7 @@ export const translations: Record<Language, any> = {
     footer: "© 2026 ResumePing · Feito para profissionais, não para acionistas."
   },
   fr: {
+    uploadTab: "Télécharger Fichier", pasteTab: "Coller Texte", optimizeBtn: "Optimiser le CV",
     analyzingPdf: "L'IA optimise votre CV...",
     extractingConcepts: "formatage pour les normes ATS",
     uploadPdf: "Télécharger le CV",
@@ -193,6 +197,7 @@ export const translations: Record<Language, any> = {
     footer: "© 2026 ResumePing · Fait pour les professionnels, pas pour les actionnaires."
   },
   hi: {
+    uploadTab: "फ़ाइल अपलोड करें", pasteTab: "टेक्स्ट पेस्ट करें", optimizeBtn: "रिज्यूमे ऑप्टिमाइज़ करें",
     analyzingPdf: "AI आपके रिज्यूमे को ऑप्टिमाइज़ कर रहा है...",
     extractingConcepts: "ATS मानकों के लिए फ़ॉर्मेटिंग",
     uploadPdf: "रिज्यूमे अपलोड करें",
@@ -231,6 +236,7 @@ export const translations: Record<Language, any> = {
     footer: "© 2026 ResumePing · शेयरधारकों के लिए नहीं, पेशेवरों के लिए बनाया गया।"
   },
   zh: {
+    uploadTab: "上传文件", pasteTab: "粘贴文本", optimizeBtn: "优化简历",
     analyzingPdf: "AI 正在优化您的简历...",
     extractingConcepts: "正在按 ATS 标准格式化",
     uploadPdf: "上传简历",
@@ -334,9 +340,9 @@ const generateSummary = createServerFn({ method: "POST" })
     Follow these strict rules:
     1. Extract all skills, experiences, and education.
     2. Rewrite bullet points using strong action verbs and quantify achievements where possible.
-    3. Structure the output clearly with standard headings (Professional Summary, Work Experience, Education, Key Skills).
+    3. Structure the output clearly with standard headings.
     4. Format the text beautifully using Markdown.
-    5. IMPORTANT: ALL output MUST be written EXCLUSIVELY in ${data.targetLanguage}. Do not use English unless the user's selected language is English.`;
+    5. IMPORTANT: ALL output MUST be written EXCLUSIVELY in ${data.targetLanguage}. You MUST translate or transliterate all company names, job titles, and locations into ${data.targetLanguage}. Keep only programming languages (like React, Node.js) in English.`;
     const result = await model.generateContent([
       prompt,
       {
