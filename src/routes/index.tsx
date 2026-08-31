@@ -1,4 +1,5 @@
 import { set, get } from "idb-keyval";
+import ReactMarkdown from "react-markdown";
 import { createServerFn } from "@tanstack/react-start";
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useRef, useState, useEffect } from "react";
@@ -1117,7 +1118,20 @@ function UnlockedResult({ language, summary, fileName }: { language: Language; s
         <h2 className="hidden print:block text-xl font-bold mb-4 border-b pb-2">
           {fileName ?? "Document"}
         </h2>
-        {summary}
+        <ReactMarkdown
+          components={{
+            h1: ({ node, ...props }) => <h1 className="text-2xl font-bold mt-4 mb-2 text-primary" {...props} />,
+            h2: ({ node, ...props }) => <h2 className="text-xl font-semibold mt-5 mb-2 border-b border-border pb-1" {...props} />,
+            h3: ({ node, ...props }) => <h3 className="text-lg font-medium mt-3 mb-1" {...props} />,
+            ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 space-y-1" {...props} />,
+            ol: ({ node, ...props }) => <ol className="list-decimal pl-5 mb-4 space-y-1" {...props} />,
+            li: ({ node, ...props }) => <li className="text-foreground/90" {...props} />,
+            p: ({ node, ...props }) => <p className="mb-3 text-foreground/90 leading-relaxed" {...props} />,
+            strong: ({ node, ...props }) => <strong className="font-bold text-foreground" {...props} />,
+          }}
+        >
+          {summary}
+        </ReactMarkdown>
       </div>
     </div>
   );
