@@ -11,7 +11,6 @@ import {
   Infinity as InfinityIcon,
   Ban,
   ShieldCheck,
-  FileText,
   Loader2,
   CheckCircle2,
   Sun,
