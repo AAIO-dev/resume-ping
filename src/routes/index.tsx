@@ -11,7 +11,7 @@ import {
   Infinity as InfinityIcon,
   Ban,
   ShieldCheck,
-  Sparkles,
+  FileText,
   Loader2,
   CheckCircle2,
   Sun,
@@ -571,7 +571,7 @@ function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 sm:px-6">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
-              <Sparkles className="h-4 w-4" />
+              <FileText className="h-4 w-4" />
             </div>
             <span className="font-display text-base font-semibold tracking-tight">
               ResumePing
@@ -877,7 +877,7 @@ function IdleZone({
             disabled={pastedText.trim().length === 0}
             className="mt-4 mx-auto inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-8 py-3.5 text-sm font-semibold text-primary-foreground transition hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed shadow-glow"
           >
-            <Sparkles className="h-4 w-4" />
+            <FileText className="h-4 w-4" />
             {translations[language].optimizeBtn}
           </button>
         </div>
