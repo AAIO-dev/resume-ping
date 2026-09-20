@@ -32,7 +32,24 @@ const customCookieStorage = {
   setItem: (key: string, value: string): void => {
     if (typeof document === 'undefined') return;
     const domain = getCookieDomain();
-    document.cookie = `${key}=${encodeURIComponent(value)}; domain=${domain}; path=/; max-age=31536000; SameSite=Lax; Secure`;
+    
+    // الحل السحري: تشذيب بيانات الجلسة (Session Trimming) لعدم تخطي حد الـ 4KB
+    let sessionToSave = value;
+    try {
+      const parsedSession = JSON.parse(value);
+      // حذف مصفوفة الهويات وتوكنات السوشيال ميديا الزائدة التي تضخم حجم الكوكي وتمنع حفظه
+      if (parsedSession?.user?.identities) {
+        delete parsedSession.user.identities;
+      }
+      if (parsedSession?.provider_token) delete parsedSession.provider_token;
+      if (parsedSession?.provider_refresh_token) delete parsedSession.provider_refresh_token;
+      
+      sessionToSave = JSON.stringify(parsedSession);
+    } catch (error) {
+      // تجاهل الخطأ في حال لم يكن بصيغة JSON صالحة
+    }
+
+    document.cookie = `${key}=${encodeURIComponent(sessionToSave)}; domain=${domain}; path=/; max-age=31536000; SameSite=Lax; Secure`;
   },
   removeItem: (key: string): void => {
     if (typeof document === 'undefined') return;
